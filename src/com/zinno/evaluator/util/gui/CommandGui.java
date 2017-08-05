@@ -110,13 +110,14 @@ public class CommandGui implements Listener {
 		}
 		GuiStorage.delStaffTarget(player.getName());
 		GuiStorage.delActiveUser(player.getName());
-		if (rank.toString() != "")
+		if (rank.toString() != "") {
 			for (int c = 0; c < 50; c++)
 				player.sendMessage("");
-		Messager.onSuccess(player,
-				ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "  -- " + ChatColor.GREEN + "The "
-						+ ChatColor.BOLD + type.toString().toLowerCase() + ChatColor.RESET + ChatColor.GREEN + " command has been executed" + ChatColor.DARK_GRAY.toString()
-						+ ChatColor.BOLD + " --  ");
+			Messager.onSuccess(player,
+					ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "  -- " + ChatColor.GREEN + "The "
+							+ ChatColor.BOLD + type.toString().toLowerCase() + ChatColor.RESET + ChatColor.GREEN
+							+ " command has been executed" + ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + " --  ");
+		}
 	}
 
 	private void dispatchPlayerFoundError(Player player, String message, CommandType type) {
