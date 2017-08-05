@@ -1,0 +1,47 @@
+main: com.zinno.evaluator.Main
+version: 1.0.0
+name: Evaluator
+author: Zinno
+
+commands:
+  helper:
+    description: Basis of all helper related commands
+    usage: /helper
+    aliases: [h] 
+  mod:
+    description: Basis of all mod related commands
+    usage: /mod
+    aliases: [m] 
+  admin:
+    description: Basis of all admin related commands
+    usage: /admin
+    aliases: [a] 
+  report:
+    description: Send a report to the staff team
+    usage: /report <Player> <Reason>
+    aliases: [r] 
+
+permissions:
+  evaluator.*:
+    description: Give access to all evaluator commands
+    children:
+      evaluator.helper: true
+      evaluator.mod: true
+      evaluator.admin: true
+      evaluator.report: true
+      evaluator.cycleteleport.bypass: true
+  evaluator.helper:
+    description: Basis of all helper related commands
+    default: op
+  evaluator.mod:
+    description: Basis of all mod related commands
+    default: op
+  evaluator.admin:
+    desctiption: Basis of all admin related commands
+    default: op
+  evaluator.report:
+    description: Send a report to the staff team
+    default: true
+  evaluator.cycleteleport.bypass:
+    description: Bypass teleport cycler
+    default: op

@@ -1,0 +1,328 @@
+Admin:
+  AvailableCommands: # Commands available to admins
+    - LogConfig
+    - Freeze
+    - Alert
+    - Xray
+    - Evaluate
+    - Note
+    - Warn
+    - Mute
+    - SMute
+    - Kick
+    - TempBan
+    - Ban
+    - Unban
+    - Strip
+    - ClearChat
+    - RestrictChat
+    - OpenChat
+    - Spy
+    - Track
+    - Vanish
+    - Toggle
+    - InvSee
+    - CycleTeleport
+    - Chat
+    - Aimbot
+    - Register
+  PermissionMessage: '&l&4[&cMOD&4]&r &cOnly admins can use this command'
+  
+Mod:
+  AvailableCommands: # Commands available to mods
+    - Freeze
+    - Alert
+    - Xray
+    - Evaluate
+    - Note
+    - Warn
+    - Mute
+    - SMute
+    - Kick
+    - Ban
+    - TempBan
+    - Unban
+    - Strip
+    - ClearChat
+    - Spy
+    - Track
+    - Vanish
+    - Toggle
+    - InvSee
+    - CycleTeleport
+    - Chat
+    - Aimbot
+  PermissionMessage: '&l&4[&cMOD&4]&r &cOnly mods can use this command'
+
+Helper:
+  AvailableCommands: # Commands available to helpers
+    - Alert
+    - Freeze
+    - Note
+    - Warn
+    - Mute
+    - SMute
+    - Kick
+    - Strip
+    - ClearChat
+    - Spy
+    - Track
+    - Vanish
+    - Toggle
+    - InvSee
+    - CycleTeleport
+    - Chat
+  PermissionMessage: '&l&4[&cHELPER&4]&r &cOnly helpers can use this command'
+
+Freeze:
+  FreezeMessage:
+    - '&l&4[&cFROZEN&4]&r &1{player}&3, you have been frozen by &1{admin}'
+    - '&l&4[&cFROZEN&4]&r &3You will be frozen for: &1{time}'
+    - '&l&4[&cFROZEN&4]&r &3Begin collecting &lproof&r if this is abusive'
+  ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
+
+Alert:
+  HelperTag:
+    - '&d[&5HELPER&d] &r&c{message}'
+  ModTag:
+    - '&l&4[&cMOD&4] &r&c&o{message}'
+  AdminTag:
+    - '&l&4[&cADMIN&4]'
+    - '&l&4[&cADMIN&4] &r&4&o{message}'
+    - '&l&4[&cADMIN&4]'
+  ConfigNote: 'Sender: {admin} Message: {message}'
+
+Xray:
+  ConfigNote: 'Sender: {admin} Target: {player}'
+
+Evaluate: # [s] = Player Stats
+  Player: # [r] = Player Reports 
+    - '[s]UUID'
+    - '[s]REPORT'
+    - '[r]REPORT'
+    - '[s]NOTE'
+    - '[s]WARN'
+    - '[s]STRIP'
+    - '[s]FREEZE'
+    - '[s]XRAY'
+    - '[s]AIMBOT'
+    - '[s]MUTE'
+    - '[s]SMUTE'
+    - '[s]KICK'
+    - '[s]TEMPBAN'
+    - '[s]BAN'
+    - '[s]UNBAN'
+  Staff:
+    - '[s]UUID'
+    - '[s]REPORT'
+    - '[r]REPORT'
+    - '[s]NOTE'
+    - '[s]WARN'
+    - '[s]STRIP'
+    - '[s]FREEZE'
+    - '[s]XRAY'
+    - '[s]AIMBOT'
+    - '[s]MUTE'
+    - '[s]SMUTE'
+    - '[s]KICK'
+    - '[s]TEMPBAN'
+    - '[s]BAN'
+    - '[s]UNBAN'
+    - '[r]FREEZE'
+    - '[r]ALERT'
+    - '[r]XRAY'
+    - '[r]AIMBOT'
+    - '[r]EVALUATE'
+    - '[r]NOTE'
+    - '[r]WARN'
+    - '[r]MUTE'
+    - '[r]SMUTE'
+    - '[r]KICK'
+    - '[r]TEMPBAN'
+    - '[r]BAN'
+    - '[r]UNBAN'
+    - '[r]STRIP'
+    - '[r]CLEARCHAT'
+    - '[r]RESTRICTCHAT'
+    - '[r]SPY'
+    - '[r]INVSEE'
+  ConfigNote: 'Sender: {admin} Target: {player}'
+
+Warn:
+  PlayerTag:
+    - '&l&4[&cWARN&4]'
+    - '&l&4[&cWARN&4] &r&4&o{player}, you have been warned by {admin} for: {message}'
+    - '&l&4[&cWARN&4]'
+  GlobalTag:
+    - '&l&d[&r&5WARN&l&d] &r&l&4&0{player}&r &4has been warned by &r&l&4&0{admin}&r &4for: {message}'
+  ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
+
+Mute:
+  PlayerTag:
+    - '&l&4[&cMUTE&4]'
+    - '&l&4[&cMUTE&4] &r&4&o{player}, you have been muted by {admin} for: {message}'
+    - '&l&4[&cMUTE&4]'
+  GlobalTag:
+    - '&l&d[&r&5MUTE&l&d] &r&l&4&0{player}&r &4has been muted by &r&l&4&0{admin}&r &4for: {message}'
+  ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
+
+SMute:
+  Config Note: 'Sender: {admin} Target: {player} Reason: {message}'
+
+Kick:
+  Message:
+    - '&l&4&o{player}'
+    - '&4You Have Been Kicked For:'
+    - '&4&o{message}'
+  GlobalTag:
+    - '&l&d[&r&5KICK&l&d] &r&l&4&0{player}&r &4has been kicked by &r&l&4&0{admin}&r &4for: {message}'
+  ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
+
+TempBan:
+  Message:
+    - '&l&4&o{player}'
+    - '&4You Have Been Banned for:'
+    - '&4&o{message}'
+    - '&cYou will be unbanned in: {time}'
+  GlobalTag:
+    - '&l&d[&r&5BAN&l&d] &r&l&4&0{player}&r &4has been banned by &r&l&4&0{admin}&r &4for: {message}'
+  ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
+  
+Ban:
+  Message:
+    - '&l&4&o{player}'
+    - '&4You Have Been Banned for:'
+    - '&4&o{message}'
+  GlobalTag:
+    - '&l&d[&r&5BAN&l&d] &r&l&4&0{player}&r &4has been banned by &r&l&4&0{admin}&r &4for: {message}'
+  ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
+
+Unban:
+  GlobalTag:
+    - '&l&d[&r&5PARDON&l&d] &r&l&4&0{player}&r &4has been pardoned by &r&l&4&0{admin}&r &4for: {message}'
+  ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
+
+Strip:
+  ConfigNote: 'Sender: {admin} Target: {player}'
+  
+ClearChat:
+  GlobalTag:
+    - '&l&d[&r&5CHAT&l&d] &r&4&0{admin} has cleared the chat'
+    - '&4&0Reason: {message}'
+  Config Note: 'Sender: {admin} Reason: {message}'
+
+RestrictChat:
+  GlobalTag:
+    - '&l&d[&r&5CHAT&l&d] &r&4&0{admin} has restricted the chat'
+    - '&4&0Reason: {message}'
+  ConfigNote: 'Sender: {admin} Reason: {message}'
+
+OpenChat:
+  GlobalTag:
+    - '&l&d[&r&5CHAT&l&d] &r&4&0{admin} has opened the chat'
+
+Spy:
+  ConfigNote: 'Sender: {admin} Target: {target} Reason: {message}'
+
+InvSee:
+  ConfigNote: 'Sender: {admin} Target: {target} Reason: {message}'
+
+Register:
+  Bots:
+
+Aimbot:
+  ConfigNote: 'Sender: {admin} Target: {target} Info: {message}'
+
+GUI: # Graphical User Interface
+  Freeze:
+    Name: '&l&bFREEZE'
+    ItemID: 79
+    Slot: 5
+  Alert:
+    Name: '&l&5ALERT'
+    ItemID: 95
+    Slot: 9
+  Xray:
+    Name: '&l&8XRAY'
+    ItemID: 56
+    Slot: 8
+  Evaluate:
+    Name: '&l&3EVALUATE'
+    ItemID: 47
+    Slot: 14
+  Note:
+    Name: '&l&2NOTE'
+    ItemID: 63
+    Slot: 10
+  Warn:
+    Name: '&l&4WARN'
+    ItemID: 175
+    Slot: 19
+  Mute:
+    Name: '&l&3MUTE'
+    ItemID: 25
+    Slot: 12
+  SMute:
+    Name: '&l&3SILENT MUTE'
+    ItemID: 31
+    Slot: 21
+  Kick:
+    Name: '&l&cKICK'
+    ItemID: 33
+    Slot: 28
+  TempBan:
+    Name: '&l&4TEMP BAN'
+    ItemID: 34
+    Slot: 11
+  Ban:
+    Name: '&l&o&4PERMA BAN'
+    ItemID: 327
+    Slot: 20
+  UnBan:
+    Name: '&l&2Pardon'
+    ItemID: 326
+    Slot: 29
+  Strip:
+    Name: '&l&cSTRIP'
+    ItemID: 334
+    Slot: 6
+  ClearChat:
+    Name: '&l&aCLEAR CHAT'
+    ItemID: 337
+    Slot: 13
+  RestrictChat:
+    Name: '&l&3RESTRICT CHAT'
+    ItemID: 331
+    Slot: 22
+  OpenChat:
+    Name: '&l&2OPEN CHAT'
+    ItemID: 341
+    Slot: 31
+  Spy:
+    Name: '&l&5SPY'
+    ItemID: 329
+    Slot: 4
+  Track:
+    Name: '&l&9TRACK'
+    ItemID: 345
+    Slot: 3
+  Vanish:
+    Name: '&l&7VANISH'
+    ItemID: 166
+    Slot: 0
+  Toggle:
+    Name: '&l&1TOGGLE'
+    ItemID: 76
+    Slot: 35
+  InvSee:
+    Name: '&l&9INVENTORY SEE'
+    ItemID: 130
+    Slot: 2
+  CycleTeleport:
+    Name: '&l&6CYCLE TELEPORT'
+    ItemID: 368
+    Slot: 1
+  Chat:
+    Name: '&l&5STAFF CHAT'
+    ItemID: 207
+    Slot: 18
