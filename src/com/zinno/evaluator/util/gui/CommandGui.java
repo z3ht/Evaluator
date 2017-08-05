@@ -20,7 +20,7 @@ public class CommandGui implements Listener {
 		Messager.onGeneral(player, ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "  ----- " + ChatColor.GOLD
 				+ ChatColor.BOLD + type.toString() + ChatColor.DARK_GRAY + ChatColor.BOLD + " -----  ");
 		if (GuiStorage.containsActiveUser(player.getName())) {
-			if (GuiStorage.containsStaffTarget(player.getName()))
+			if (type.requiresName())
 				Messager.onGeneral(player,
 						ChatColor.AQUA + "Please enter the " + ChatColor.BOLD + "reason " + ChatColor.RESET
 								+ ChatColor.AQUA + "for punishing " + ChatColor.BOLD
@@ -28,11 +28,18 @@ public class CommandGui implements Listener {
 			else
 				Messager.onGeneral(player, ChatColor.AQUA + "Please enter the required arguments for " + ChatColor.BOLD
 						+ type.toString().toLowerCase());
-		} else
-			Messager.onGeneral(player, ChatColor.AQUA + "Please enter the " + ChatColor.BOLD + "name " + ChatColor.RESET
-					+ ChatColor.AQUA + "of the player you would like to " + type.toString().toLowerCase());
+		} else {
+			if (type.requiresName())
+				Messager.onGeneral(player,
+						ChatColor.AQUA + "Please enter the " + ChatColor.BOLD + "name" + ChatColor.RESET
+								+ ChatColor.AQUA + " of the player you would like to " + type.toString().toLowerCase());
+			else
+				Messager.onGeneral(player, ChatColor.AQUA + "Please enter the required arguments for " + ChatColor.BOLD
+						+ type.toString().toLowerCase());
+		}
+
 		Messager.onTip(player, ChatColor.GRAY + "Type " + ChatColor.BOLD + "'c'" + ChatColor.RESET + ChatColor.GRAY
-				+ " to cancel the command");
+				+ " or " + ChatColor.BOLD + "'cancel'" + ChatColor.RESET + ChatColor.GRAY + " to cancel the command");
 		GuiStorage.addActiveUser(player.getName(), type);
 	}
 
@@ -47,84 +54,78 @@ public class CommandGui implements Listener {
 		Player player = event.getPlayer();
 		CommandType type = GuiStorage.getActiveUsers().get(player.getName());
 		String message = event.getMessage();
-		player.sendMessage(message);
-		if (message == null || message.equals("") || message.equalsIgnoreCase("c")) {
-			Messager.onSuccess(player, ChatColor.GREEN.toString() + ChatColor.ITALIC + type.toString());
-			Messager.onSuccess(player, ChatColor.GREEN + "You have successfully cancelled the command execution");
+		for (int c = 0; c < 50; c++)
+			player.sendMessage("");
+		if (message == null || message.equals("") || message.equalsIgnoreCase("c")
+				|| message.equalsIgnoreCase("cancel")) {
+			Messager.onSuccess(player, ChatColor.GREEN + "You have successfully " + ChatColor.BOLD + "cancelled"
+					+ ChatColor.RESET + ChatColor.GREEN + " the " + type.toString().toLowerCase() + " command");
 			GuiStorage.delActiveUser(player.getName());
 			return;
 		}
 		if (type.requiresName() && !(GuiStorage.containsStaffTarget(player.getName()))) {
 			if (message.contains(" ")) {
-				player.sendMessage("uh oh");
-				dispatchError(player, type);
+				dispatchPlayerFoundError(player, message, type);
 				return;
 			}
 			for (Player target : Bukkit.getOnlinePlayers()) {
 				if (target.getName().equalsIgnoreCase(message)) {
-					player.sendMessage("yo");
 					if (!(type.requiresReason())) {
-						if (player.hasPermission("evaluator.admin")) {
-							player.performCommand("admin " + type.toString() + " " + target.getName());
-							GuiStorage.delActiveUser(player.getName());
-							Messager.onSuccess(player, ChatColor.GREEN + " --  THE COMMAND HAS BEEN SENT  -- ");
-							return;
-						} else if (player.hasPermission("evaluator.mod")) {
-							player.performCommand("mod " + type.toString() + " " + target.getName());
-							GuiStorage.delActiveUser(player.getName());
-							Messager.onSuccess(player, ChatColor.GREEN + " --  THE COMMAND HAS BEEN SENT  -- ");
-							return;
-						} else if (player.hasPermission("evaluator.helper")) {
-							player.performCommand("helper " + type.toString() + " " + target.getName());
-							GuiStorage.delActiveUser(player.getName());
-							Messager.onSuccess(player, ChatColor.GREEN + " --  THE COMMAND HAS BEEN SENT  -- ");
-							return;
-						}
+						runCommand(player, type, target.getName(), null);
+						return;
 					}
 					GuiStorage.addStaffTarget(player.getName(), target.getName());
 					target(player, type);
 					return;
 				}
 			}
-			dispatchError(player, type);
+			dispatchPlayerFoundError(player, message, type);
 			return;
 		}
 		if (type.requiresName()) {
-			if (player.hasPermission("evaluator.admin"))
-				player.performCommand("admin " + type.toString() + " "
-						+ GuiStorage.getStaffTargets().get(player.getName()) + " " + message);
-			else if (player.hasPermission("evaluator.mod"))
-				player.performCommand("mod " + type.toString() + " "
-						+ GuiStorage.getStaffTargets().get(player.getName()) + " " + message);
-			else if (player.hasPermission("evaluator.helper"))
-				player.performCommand("helper " + type.toString() + " "
-						+ GuiStorage.getStaffTargets().get(player.getName()) + " " + message);
-			GuiStorage.delStaffTarget(player.getName());
-			GuiStorage.delActiveUser(player.getName());
-			Messager.onSuccess(player, ChatColor.GREEN + " --  THE COMMAND HAS BEEN SENT  -- ");
+			runCommand(player, type, GuiStorage.getStaffTargets().get(player.getName()), message);
 			return;
 		}
-		if (player.hasPermission("evaluator.admin"))
-			player.performCommand("admin " + type.toString() + " " + message);
-		else if (player.hasPermission("evaluator.mod"))
-			player.performCommand("mod " + type.toString() + " " + message);
-		else if (player.hasPermission("evaluator.helper"))
-			player.performCommand("helper " + type.toString() + " " + message);
-		GuiStorage.delActiveUser(player.getName());
-		Messager.onSuccess(player, ChatColor.GREEN + " --  THE COMMAND HAS BEEN SENT  -- ");
+		runCommand(player, type, null, message);
 		return;
 	}
 
-	private void dispatchError(Player player, CommandType type) {
-		player.sendMessage(ChatColor.DARK_RED.toString() + ChatColor.BOLD + "-----");
-		Messager.onError(player, ChatColor.RED.toString() + ChatColor.ITALIC + type.toString());
-		if (GuiStorage.getStaffTargets().get(player) == null)
-			Messager.onError(player, ChatColor.RED + "Please enter the name of the player you would like to punish");
-		else
-			Messager.onError(player,
-					ChatColor.GREEN + "Please enter the arguments required for " + ChatColor.BOLD + type);
-		Messager.onError(player, ChatColor.GOLD + "Try Again: (Or type " + ChatColor.BOLD + "c" + ChatColor.RESET
-				+ ChatColor.GOLD + " to cancel");
+	private void runCommand(Player player, CommandType type, String target, String reason) {
+		StringBuilder rank = new StringBuilder();
+		if (player.hasPermission("evaluator.admin"))
+			rank.append("admin");
+		else if (player.hasPermission("evaluator.mod"))
+			rank.append("mod");
+		else if (player.hasPermission("evaluator.helper"))
+			rank.append("helper");
+		if (target != null && reason != null)
+			player.performCommand(rank.toString() + " " + type.toString() + " " + target + " " + reason);
+		else if (target != null)
+			player.performCommand(rank.toString() + " " + type.toString() + " " + target);
+		else if (reason != null)
+			player.performCommand(rank.toString() + " " + type.toString() + " " + reason);
+		else {
+			Messager.onError(player, ChatColor.RED + "An unknown error occurred when executing the command");
+			Messager.onError(player, ChatColor.RED + "The command has been cancelled");
+		}
+		GuiStorage.delStaffTarget(player.getName());
+		GuiStorage.delActiveUser(player.getName());
+		if (rank.toString() != "")
+			for (int c = 0; c < 50; c++)
+				player.sendMessage("");
+		Messager.onSuccess(player,
+				ChatColor.DARK_GRAY.toString() + ChatColor.BOLD + "  -- " + ChatColor.GREEN + "The "
+						+ ChatColor.BOLD + type.toString().toLowerCase() + ChatColor.RESET + ChatColor.GREEN + " command has been executed" + ChatColor.DARK_GRAY.toString()
+						+ ChatColor.BOLD + " --  ");
+	}
+
+	private void dispatchPlayerFoundError(Player player, String message, CommandType type) {
+		Messager.onError(player, ChatColor.RED + "The player " + ChatColor.BOLD + message + ChatColor.RESET
+				+ ChatColor.RED + " could not be found.");
+		Messager.onError(player, ChatColor.RED + "Please enter the " + ChatColor.BOLD + "name" + ChatColor.RESET
+				+ ChatColor.RED + " of the player you would like to " + type.toString().toLowerCase());
+		Messager.onTip(player, ChatColor.GRAY + "Type " + ChatColor.BOLD + "'c'" + ChatColor.RESET + ChatColor.GRAY
+				+ " or " + ChatColor.BOLD + "'cancel'" + ChatColor.RESET + ChatColor.GRAY + " to cancel the command");
 	}
 
 	@EventHandler

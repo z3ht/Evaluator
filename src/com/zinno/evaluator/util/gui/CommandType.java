@@ -27,6 +27,15 @@ public enum CommandType {
 		}
 	}
 	
+	public boolean requiresPriority() {
+		switch(this) {
+		case ALERT:
+			return true;
+		default:
+			return false;
+		}
+	}
+	
 	public boolean requiresReason() {
 		switch(this) {
 		case EVALUATE:
