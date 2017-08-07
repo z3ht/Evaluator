@@ -1,4 +1,4 @@
-package com.zinno.evaluator.gui.commandgui;
+package com.zinno.evaluator.gui.command;
 
 public enum CommandType {
 	ALERT,

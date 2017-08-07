@@ -36,7 +36,7 @@ import com.zinno.evaluator.commands.subCommands.Unban;
 import com.zinno.evaluator.commands.subCommands.Vanish;
 import com.zinno.evaluator.commands.subCommands.Warn;
 import com.zinno.evaluator.commands.subCommands.Xray;
-import com.zinno.evaluator.gui.commandgui.CommandGui;
+import com.zinno.evaluator.gui.command.CommandGui;
 
 public class Main extends JavaPlugin {
 	

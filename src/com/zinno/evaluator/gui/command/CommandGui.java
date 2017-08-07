@@ -1,4 +1,4 @@
-package com.zinno.evaluator.gui.commandgui;
+package com.zinno.evaluator.gui.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

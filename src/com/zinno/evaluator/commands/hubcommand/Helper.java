@@ -10,7 +10,7 @@ import org.bukkit.entity.Player;
 
 import com.zinno.evaluator.Main;
 import com.zinno.evaluator.commands.SubCommand;
-import com.zinno.evaluator.gui.HelperInventory;
+import com.zinno.evaluator.gui.inventory.HelperInventory;
 import com.zinno.evaluator.util.Translate;
 
 import net.md_5.bungee.api.ChatColor;

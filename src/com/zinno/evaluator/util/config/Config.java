@@ -12,7 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.zinno.evaluator.Main;
-import com.zinno.evaluator.gui.commandgui.CommandType;
+import com.zinno.evaluator.gui.command.CommandType;
 import com.zinno.evaluator.util.messager.Messager;
 
 import net.md_5.bungee.api.ChatColor;

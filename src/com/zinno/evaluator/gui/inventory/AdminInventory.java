@@ -1,13 +1,13 @@
-package com.zinno.evaluator.gui;
+package com.zinno.evaluator.gui.inventory;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 import com.zinno.evaluator.Main;
 
-public class ModInventory extends EvaluatorInventory {
+public class AdminInventory extends EvaluatorInventory {
 
-	public ModInventory(Main plugin, Player player) {
+	public AdminInventory(Main plugin, Player player) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -15,7 +15,5 @@ public class ModInventory extends EvaluatorInventory {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	
-	
+
 }

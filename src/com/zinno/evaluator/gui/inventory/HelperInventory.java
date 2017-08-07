@@ -1,4 +1,4 @@
-package com.zinno.evaluator.gui;
+package com.zinno.evaluator.gui.inventory;
 
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
