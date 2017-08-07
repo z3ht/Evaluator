@@ -12,7 +12,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.zinno.evaluator.Main;
-import com.zinno.evaluator.util.Config;
+import com.zinno.evaluator.util.config.Config;
 import com.zinno.evaluator.util.messager.Messager;
 import com.zinno.evaluator.util.messager.Priority;
 

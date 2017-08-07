@@ -83,13 +83,11 @@ Freeze:
 
 Alert:
   HelperTag:
-    - '&d[&5HELPER&d] &r&c{message}'
+    - '&5&l[&dHELPER&5&l] &r&c{message}'
   ModTag:
-    - '&l&4[&cMOD&4] &r&c&o{message}'
+    - '&4&l[&c&lMOD&4&l] &r&c&l{message}'
   AdminTag:
-    - '&l&4[&cADMIN&4]'
-    - '&l&4[&cADMIN&4] &r&4&o{message}'
-    - '&l&4[&cADMIN&4]'
+    - '&4&l[&c&o&lADMIN&r&4&l] &r&c&l{message}'
   ConfigNote: 'Sender: {admin} Message: {message}'
 
 Xray:
@@ -185,16 +183,26 @@ TempBan:
     - '&4&o{message}'
     - '&cYou will be unbanned in: {time}'
   GlobalTag:
-    - '&l&d[&r&5BAN&l&d] &r&l&4&0{player}&r &4has been banned by &r&l&4&0{admin}&r &4for: {message}'
+    - '&l&d[&r&5BAN&l&d] &r&l&4&0{player}&r &4has been banned by &r&l&4&0{admin}'
+    - '&l&d[&r&5BAN&l&d] &r&4&lReason: &r&4{message}'
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
   
 Ban:
-  Message:
-    - '&l&4&o{player}'
-    - '&4You Have Been Banned for:'
-    - '&4&o{message}'
+  NoJoinMessage:
+    - '&8&l--- &4&lLudum Network &8&l---'
+    - ''
+    - '&c&l{player}&r&7, you have been banned'
+    - '&7&oBanned By: &4{admin}'
+    - ''
+    - '&7Unban in: &4&lPERMANENT'
+    - ''
+    - '&6&lReason:'
+    - '&e{message}'
+    - ''
+    - '&8&l---&4&l<:>&8&l---'
   GlobalTag:
-    - '&l&d[&r&5BAN&l&d] &r&l&4&0{player}&r &4has been banned by &r&l&4&0{admin}&r &4for: {message}'
+    - '&4&l[&c&o&lBAN&r&4&l] &c&l{player} &r&chas been banned by &l{admin}'
+    - '&4&l[&c&o&lBAN&r&4&l] &r&c&lReason: &r&7{message}'
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
 
 Unban:
@@ -207,19 +215,19 @@ Strip:
   
 ClearChat:
   GlobalTag:
-    - '&l&d[&r&5CHAT&l&d] &r&4&0{admin} has cleared the chat'
-    - '&4&0Reason: {message}'
-  Config Note: 'Sender: {admin} Reason: {message}'
+    - '&7&l[&eCHAT&7&l] &6&l{admin} &fhas cleared the chat'
+    - '&7&l[&eCHAT&7&l] &fReason: &7{message}'
+  ConfigNote: 'Sender: {admin} Reason: {message}'
 
 RestrictChat:
   GlobalTag:
-    - '&l&d[&r&5CHAT&l&d] &r&4&0{admin} has restricted the chat'
-    - '&4&0Reason: {message}'
+    - '&7&l[&eCHAT&7&l] &6&l{admin} &fhas restricted the chat'
+    - '&7&l[&eCHAT&7&l] &fReason: &7{message}'
   ConfigNote: 'Sender: {admin} Reason: {message}'
 
 OpenChat:
   GlobalTag:
-    - '&l&d[&r&5CHAT&l&d] &r&4&0{admin} has opened the chat'
+    - '&7&l[&eCHAT&7&l] &6&l{admin} &fhas opened the chat'
 
 Spy:
   ConfigNote: 'Sender: {admin} Target: {target} Reason: {message}'

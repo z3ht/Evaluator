@@ -33,15 +33,21 @@ permissions:
   evaluator.helper:
     description: Basis of all helper related commands
     default: op
+    children:
+      evaluator.staff: true
   evaluator.mod:
     description: Basis of all mod related commands
     default: op
+    children:
+      evaluator.staff: true
   evaluator.admin:
-    desctiption: Basis of all admin related commands
+    description: Basis of all admin related commands
+    default: op
+    children:
+      evaluator.staff: true
+  evaluator.debug:
+    description: Send debugger alerts to discord.gg/sr5rRuk
     default: op
   evaluator.report:
     description: Send a report to the staff team
     default: true
-  evaluator.cycleteleport.bypass:
-    description: Bypass teleport cycler
-    default: op

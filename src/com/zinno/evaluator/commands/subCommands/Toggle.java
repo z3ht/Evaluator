@@ -9,7 +9,7 @@ public class Toggle implements SubCommand {
 
 	@Override
 	public void runCommand(CommandSender sender, String label, String[] args, Main plugin) {
-		// TODO Auto-generated method stub
+		// TODO MODE, CHAT, CYCLETELEPORT?, SAFEMODE
 		
 	}
 

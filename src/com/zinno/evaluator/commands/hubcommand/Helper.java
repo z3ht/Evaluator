@@ -44,7 +44,7 @@ public class Helper implements CommandExecutor, HubCommand {
 		}
 		for(List<String> alias : subCommand.keySet()) {
 			if(alias.contains(args[0].toLowerCase())) {
-				subCommand.get(alias).runCommand(sender, label, args, plugin);
+				subCommand.get(alias).runCommand(player, label, args, plugin);
 				return true;
 			}
 		}

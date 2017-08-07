@@ -36,7 +36,7 @@ import com.zinno.evaluator.commands.subCommands.Unban;
 import com.zinno.evaluator.commands.subCommands.Vanish;
 import com.zinno.evaluator.commands.subCommands.Warn;
 import com.zinno.evaluator.commands.subCommands.Xray;
-import com.zinno.evaluator.util.gui.CommandGui;
+import com.zinno.evaluator.gui.commandgui.CommandGui;
 
 public class Main extends JavaPlugin {
 	
@@ -47,17 +47,18 @@ public class Main extends JavaPlugin {
 		registerSubCommands();
 		registerEvents();
 	}
-	
-	private void registerEvents() {
-		PluginManager pm = Bukkit.getPluginManager();
-		pm.registerEvents(new CommandGui(), this);
-	}
 
 	@Override
 	public void onDisable() {
 		finalize();
 	}
 	
+
+	private void registerEvents() {
+		PluginManager pm = Bukkit.getPluginManager();
+		pm.registerEvents(new CommandGui(), this);
+		pm.registerEvents(new Ban(this), this);
+	}
 	
 	private void registerConfig() {
 		getConfig().options().copyDefaults(true);
@@ -153,7 +154,7 @@ public class Main extends JavaPlugin {
 				classType.addSubCommand(Arrays.asList("invsee", "echest", "is", "ec"), new InvSee());
 				break;
 			case "CycleTeleport":
-				classType.addSubCommand(Arrays.asList("cycleteleport", "randomteleport", "cycletp", "randomtp", "randtp"), new CycleTeleport());
+				classType.addSubCommand(Arrays.asList("cycleteleport", "randomteleport", "cycletp", "randomtp", "ctp", "randtp"), new CycleTeleport());
 				break;
 			case "Chat":
 				classType.addSubCommand(Arrays.asList("chat", "achat", "mchat", "hchat"), new Chat());

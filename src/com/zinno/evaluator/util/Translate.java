@@ -11,15 +11,27 @@ public class Translate {
 	private final static int minute = 1200;
 	private final static int second = 20;
 	
+	public static String Reason(String rawText, String message) {
+		if(rawText == null || message == null)
+			return "";
+		return rawText.replace("{message}", message);
+	}
+	
 	//Translates %player% to target player and %admin% to sender name
 	public static String Names(String rawText, String senderName, String targetName) {
-		rawText.replace("%player%", targetName);
-		rawText.replace("%admin%", senderName);
+		if(rawText == null)
+			return "";
+		if(targetName != null)
+			rawText = rawText.replace("{player}", targetName);
+		if(senderName != null)
+			rawText = rawText.replace("{admin}", senderName);
 		return rawText;
 	}
 	
 	//Translates & to color compatible symbols
 	public static String Color(String rawText) {
+		if(rawText == null)
+			return "";
 		String translatedText = ChatColor.translateAlternateColorCodes('&', rawText);
 		return translatedText;
 	}
@@ -54,5 +66,9 @@ public class Translate {
 			throw new IllegalArgumentException("No Translations Found");
 		}
 		return total;
+	}
+
+	public static String all(String message, String sender, String target, String reason) {
+		return Translate.Reason(Translate.Names(Translate.Color(message), sender, target), reason);
 	}
 }
