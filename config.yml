@@ -26,7 +26,7 @@ Admin:
     - Chat
     - Aimbot
     - Register
-  PermissionMessage: '&l&4[&cMOD&4]&r &cOnly admins can use this command'
+  PermissionMessage: '&4&l[&c&o&lADMIN&r&4&l] &cOnly admins can use this command'
   
 Mod:
   AvailableCommands: # Commands available to mods
@@ -74,11 +74,10 @@ Helper:
     - Chat
   PermissionMessage: '&l&4[&cHELPER&4]&r &cOnly helpers can use this command'
 
+Report:
+  ConfigNote: 'Sender: {admin} Target: {player} Reason {message}'
+
 Freeze:
-  FreezeMessage:
-    - '&l&4[&cFROZEN&4]&r &1{player}&3, you have been frozen by &1{admin}'
-    - '&l&4[&cFROZEN&4]&r &3You will be frozen for: &1{time}'
-    - '&l&4[&cFROZEN&4]&r &3Begin collecting &lproof&r if this is abusive'
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
 
 Alert:
@@ -103,7 +102,6 @@ Evaluate: # [s] = Player Stats
     - '[s]STRIP'
     - '[s]FREEZE'
     - '[s]XRAY'
-    - '[s]AIMBOT'
     - '[s]MUTE'
     - '[s]SMUTE'
     - '[s]KICK'
@@ -119,7 +117,6 @@ Evaluate: # [s] = Player Stats
     - '[s]STRIP'
     - '[s]FREEZE'
     - '[s]XRAY'
-    - '[s]AIMBOT'
     - '[s]MUTE'
     - '[s]SMUTE'
     - '[s]KICK'
@@ -129,7 +126,6 @@ Evaluate: # [s] = Player Stats
     - '[r]FREEZE'
     - '[r]ALERT'
     - '[r]XRAY'
-    - '[r]AIMBOT'
     - '[r]EVALUATE'
     - '[r]NOTE'
     - '[r]WARN'
@@ -147,44 +143,40 @@ Evaluate: # [s] = Player Stats
   ConfigNote: 'Sender: {admin} Target: {player}'
 
 Warn:
-  PlayerTag:
-    - '&l&4[&cWARN&4]'
-    - '&l&4[&cWARN&4] &r&4&o{player}, you have been warned by {admin} for: {message}'
-    - '&l&4[&cWARN&4]'
-  GlobalTag:
-    - '&l&d[&r&5WARN&l&d] &r&l&4&0{player}&r &4has been warned by &r&l&4&0{admin}&r &4for: {message}'
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
 
 Mute:
-  PlayerTag:
-    - '&l&4[&cMUTE&4]'
-    - '&l&4[&cMUTE&4] &r&4&o{player}, you have been muted by {admin} for: {message}'
-    - '&l&4[&cMUTE&4]'
-  GlobalTag:
-    - '&l&d[&r&5MUTE&l&d] &r&l&4&0{player}&r &4has been muted by &r&l&4&0{admin}&r &4for: {message}'
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
 
 SMute:
   Config Note: 'Sender: {admin} Target: {player} Reason: {message}'
 
 Kick:
-  Message:
-    - '&l&4&o{player}'
-    - '&4You Have Been Kicked For:'
-    - '&4&o{message}'
-  GlobalTag:
-    - '&l&d[&r&5KICK&l&d] &r&l&4&0{player}&r &4has been kicked by &r&l&4&0{admin}&r &4for: {message}'
+  NoJoinMessage:
+    - '&8&l--- &4&lLudum Network &8&l---'
+    - ''
+    - '&c&l{player}&r&7, you have been kicked'
+    - '&7&oKicked By: &4{admin}'
+    - ''
+    - '&6&lReason:'
+    - '&e{message}'
+    - ''
+    - '&8&l---&4&l<:>&8&l---'
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
 
 TempBan:
-  Message:
-    - '&l&4&o{player}'
-    - '&4You Have Been Banned for:'
-    - '&4&o{message}'
-    - '&cYou will be unbanned in: {time}'
-  GlobalTag:
-    - '&l&d[&r&5BAN&l&d] &r&l&4&0{player}&r &4has been banned by &r&l&4&0{admin}'
-    - '&l&d[&r&5BAN&l&d] &r&4&lReason: &r&4{message}'
+  NoJoinMessage:
+    - '&8&l--- &4&lLudum Network &8&l---'
+    - ''
+    - '&c&l{player}&r&7, you have been temp-banned'
+    - '&7&oBanned By: &4{admin}'
+    - ''
+    - '&7Unban in: &4&l{time}'
+    - ''
+    - '&6&lReason:'
+    - '&e{message}'
+    - ''
+    - '&8&l---&4&l<:>&8&l---'
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
   
 Ban:
@@ -206,8 +198,6 @@ Ban:
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
 
 Unban:
-  GlobalTag:
-    - '&l&d[&r&5PARDON&l&d] &r&l&4&0{player}&r &4has been pardoned by &r&l&4&0{admin}&r &4for: {message}'
   ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
 
 Strip:
@@ -230,16 +220,10 @@ OpenChat:
     - '&7&l[&eCHAT&7&l] &6&l{admin} &fhas opened the chat'
 
 Spy:
-  ConfigNote: 'Sender: {admin} Target: {target} Reason: {message}'
+  ConfigNote: 'Sender: {admin} Target: {player} Reason: {message}'
 
 InvSee:
-  ConfigNote: 'Sender: {admin} Target: {target} Reason: {message}'
-
-Register:
-  Bots:
-
-Aimbot:
-  ConfigNote: 'Sender: {admin} Target: {target} Info: {message}'
+  ConfigNote: 'Sender: {admin} Target: {player}'
 
 GUI: # Graphical User Interface
   Freeze:

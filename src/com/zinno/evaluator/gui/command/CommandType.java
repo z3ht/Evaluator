@@ -1,6 +1,8 @@
 package com.zinno.evaluator.gui.command;
 
 public enum CommandType {
+	UUID,
+	REPORT,
 	ALERT,
 	BAN,
 	CHAT,
@@ -30,6 +32,7 @@ public enum CommandType {
 		case TRACK:
 		case STRIP:
 		case XRAY:
+		case UUID:
 			return false;
 		default:
 			return true;
@@ -52,6 +55,7 @@ public enum CommandType {
 		case CHAT:
 		case CLEARCHAT:
 		case RESTRICTCHAT:
+		case UUID:
 			return false;
 		default:
 			return true;
@@ -60,6 +64,8 @@ public enum CommandType {
 	
 	public String toConfig() {
 		switch(this) {
+		case UUID:
+			return "UUID";
 		case CLEARCHAT:
 			return "ClearChat";
 		case INVSEE:

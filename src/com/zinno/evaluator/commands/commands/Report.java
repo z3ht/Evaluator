@@ -1,17 +1,18 @@
 package com.zinno.evaluator.commands.commands;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import com.zinno.evaluator.Main;
+import com.zinno.evaluator.gui.command.CommandGui;
+import com.zinno.evaluator.gui.command.CommandType;
 import com.zinno.evaluator.util.config.Config;
 import com.zinno.evaluator.util.messager.Messager;
 import com.zinno.evaluator.util.messager.Priority;
@@ -21,6 +22,7 @@ import net.md_5.bungee.api.ChatColor;
 public class Report implements CommandExecutor {
 
 	private Main plugin;
+	private static List<String> activeReports = new ArrayList<String>();
 
 	public Report(Main plugin) {
 		this.plugin = plugin;
@@ -33,18 +35,22 @@ public class Report implements CommandExecutor {
 			return true;
 		}
 		Player player = (Player) sender;
-		if(!(player.hasPermission("evaluator.report"))) {
+		if (!(player.hasPermission("evaluator.report"))) {
 			Messager.onPerms(player);
 			return true;
-		}else if(args == null || args.length == 0) {
-			Messager.onError(player, ChatColor.RED + "Please Supply a reason for the report");
+		} else if (player.hasPermission("evaluator.staff")) {
+			Messager.onError(player, ChatColor.RED + "Staff members can not send reports.");
+			Messager.onError(player,
+					ChatColor.RED + "Use the " + ChatColor.BOLD + "NOTE" + ChatColor.RESET + ChatColor.RED + " or "
+							+ ChatColor.BOLD + "WARN" + ChatColor.RED.toString() + ChatColor.RED + " command instead");
+			return true;
+		} else if (args == null || args.length == 0) {
+			CommandGui.target(player, CommandType.REPORT);
+			return true;
 		}
-		File reportFile = new File(plugin.getDataFolder(), "Reports.yml");
-		FileConfiguration reportCFG = YamlConfiguration.loadConfiguration(reportFile);
-		List<String> reportList = reportCFG.getStringList("Reports");
 
 		for (Player target : Bukkit.getOnlinePlayers()) {
-			if (target.getName().equalsIgnoreCase(args[1]) || target.getDisplayName().equalsIgnoreCase(args[1])) {
+			if (target.getName().equalsIgnoreCase(args[0]) || target.getDisplayName().equalsIgnoreCase(args[0])) {
 				StringBuilder strBuilder = new StringBuilder();
 				for (int i = 1; i < args.length; i++) {
 					strBuilder.append(args[i] + " ");
@@ -56,26 +62,12 @@ public class Report implements CommandExecutor {
 						+ ChatColor.BOLD.toString() + ChatColor.RED + target.getDisplayName() + ChatColor.RESET
 						+ ChatColor.LIGHT_PURPLE + "   Message: " + ChatColor.GOLD + reason, Priority.MEDIUM);
 
-				File targetFile = Config.getPlayerFile(player.getUniqueId(), plugin);
-				FileConfiguration targetConfig = Config.getFileConfig(targetFile);
-				List<String> targetReportList = targetConfig.getStringList("Sent.Reports");
-				targetReportList.add("Sender: " + player.getDisplayName() + "   Target: " + target.getDisplayName()
-						+ "   Message: " + reason);
-				targetConfig.set("Sent.Reports", targetReportList);
-				Config.saveFile(targetFile, targetConfig);
+				Config.log(Pair.of(player.getUniqueId(), player.getName()),
+						Pair.of(target.getUniqueId(), target.getName()), reason, CommandType.REPORT, plugin);
+				player.sendMessage(this.getPrefix() + ChatColor.GRAY + "Your report has been sent, thanks!");
+				activeReports
+						.add("Sender: " + player.getName() + " Target: " + target.getName() + " Message: " + reason);
 
-				File senderFile = Config.getPlayerFile(player.getUniqueId(), plugin);
-				FileConfiguration senderConfig = Config.getFileConfig(senderFile);
-				List<String> senderReportList = senderConfig.getStringList("Sent.Reports");
-				targetReportList.add("Sender: " + player.getDisplayName() + "   Target: " + target.getDisplayName()
-						+ "   Message: " + reason);
-				senderConfig.set("Sent.Reports", senderReportList);
-				Config.saveFile(senderFile, senderConfig);
-
-				targetReportList.add("Sender: " + player.getDisplayName() + "   Target: " + target.getDisplayName()
-						+ "   Message: " + reason);
-				reportCFG.set("Reports", reportList);
-				Config.saveFile(reportFile, reportCFG);
 				return true;
 			}
 		}
@@ -90,18 +82,19 @@ public class Report implements CommandExecutor {
 				+ player.getDisplayName() + ChatColor.RESET + ChatColor.LIGHT_PURPLE + "   Message: " + ChatColor.GOLD
 				+ reason, Priority.MEDIUM);
 
-		File playerFile = Config.getPlayerFile(player.getUniqueId(), plugin);
-		FileConfiguration playerConfig = Config.getFileConfig(playerFile);
-		List<String> playerReportList = playerConfig.getStringList("Sent.Reports");
-		playerReportList.add("Sender: " + player.getDisplayName() + "   Message: " + reason);
-		playerConfig.set("Sent.Reports", playerReportList);
-		Config.saveFile(playerFile, playerConfig);
-
-		reportList.add("Sender: " + player.getDisplayName() + "   Message: " + reason);
-		reportCFG.set("Reports", reportList);
-		Config.saveFile(reportFile, reportCFG);
+		activeReports.add("Sender: " + player.getName() + " Message: " + reason);
+		player.sendMessage(this.getPrefix() + ChatColor.GRAY + "Your report has been sent, thanks!");
+		Config.log(Pair.of(player.getUniqueId(), player.getName()), null, reason, CommandType.REPORT, plugin);
 
 		return true;
 	}
 
+	private String getPrefix() {
+		return ChatColor.WHITE + "[" + ChatColor.AQUA.toString() + ChatColor.BOLD + "R" + ChatColor.WHITE + "] "
+				+ ChatColor.RESET;
+	}
+	
+	public static List<String> getActiveReports() {
+		return activeReports;
+	}
 }

@@ -75,7 +75,7 @@ public class CommandGui implements Listener {
 						return;
 					}
 					GuiStorage.addStaffTarget(player.getName(), target.getName());
-					target(player, type);
+					CommandGui.target(player, type);
 					return;
 				}
 			}
@@ -91,19 +91,19 @@ public class CommandGui implements Listener {
 	}
 
 	private void runCommand(Player player, CommandType type, String target, String reason) {
-		StringBuilder rank = new StringBuilder();
+		String rank = "";
 		if (player.hasPermission("evaluator.admin"))
-			rank.append("admin");
+			rank = "admin ";
 		else if (player.hasPermission("evaluator.mod"))
-			rank.append("mod");
+			rank = "mod ";
 		else if (player.hasPermission("evaluator.helper"))
-			rank.append("helper");
+			rank = "helper ";
 		if (target != null && reason != null)
-			player.performCommand(rank.toString() + " " + type.toString() + " " + target + " " + reason);
+			player.performCommand(rank + type.toString() + " " + target + " " + reason);
 		else if (target != null)
-			player.performCommand(rank.toString() + " " + type.toString() + " " + target);
+			player.performCommand(rank + type.toString() + " " + target);
 		else if (reason != null)
-			player.performCommand(rank.toString() + " " + type.toString() + " " + reason);
+			player.performCommand(rank + type.toString() + " " + reason);
 		else {
 			Messager.onError(player, ChatColor.RED + "An unknown error occurred when executing the command");
 			Messager.onError(player, ChatColor.RED + "The command has been cancelled");

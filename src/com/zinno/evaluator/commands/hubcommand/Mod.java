@@ -31,11 +31,11 @@ public class Mod implements CommandExecutor, HubCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(Translate.Color(plugin.getConfig().getString("Mod.Permission Message")));
+			sender.sendMessage(Translate.Color(plugin.getConfig().getString("Mod.PermissionMessage")));
 		}
 		Player player = (Player) sender;
 		if(!(player.hasPermission("evaluator.mod"))) {
-			player.sendMessage(Translate.Color(plugin.getConfig().getString("Mod.Permission Message")));
+			player.sendMessage(Translate.Color(plugin.getConfig().getString("Mod.PermissionMessage")));
 			return true;
 		}
 		if(args == null || args.length == 0) {

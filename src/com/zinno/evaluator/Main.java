@@ -39,7 +39,7 @@ import com.zinno.evaluator.commands.subCommands.Xray;
 import com.zinno.evaluator.gui.command.CommandGui;
 
 public class Main extends JavaPlugin {
-	
+
 	@Override
 	public void onEnable() {
 		registerConfig();
@@ -52,49 +52,52 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		finalize();
 	}
-	
 
 	private void registerEvents() {
 		PluginManager pm = Bukkit.getPluginManager();
 		pm.registerEvents(new CommandGui(), this);
 		pm.registerEvents(new Ban(this), this);
+		pm.registerEvents(new Evaluate(), this);
+		pm.registerEvents(new Freeze(), this);
+		pm.registerEvents(new InvSee(), this);
 	}
-	
+
 	private void registerConfig() {
 		getConfig().options().copyDefaults(true);
 		saveConfig();
 	}
-	
+
 	private void registerCommands() {
 		getCommand("admin").setExecutor(new Admin(this));
 		getCommand("mod").setExecutor(new Mod(this));
 		getCommand("helper").setExecutor(new Helper(this));
 		getCommand("report").setExecutor(new Report(this));
 	}
-	
+
 	private void registerSubCommands() {
 		addSubCommands(new Admin());
 		addSubCommands(new Mod());
 		addSubCommands(new Helper());
 	}
-	
+
 	@Override
 	public void finalize() {
-		
+
 	}
-	
+
 	private void addSubCommands(HubCommand classType) {
 		String configName = classType.getConfigName();
-		for(String availableSubCommand : this.getConfig().getStringList(configName + ".AvailableCommands")) {
-			switch(availableSubCommand) {
+		for (String availableSubCommand : this.getConfig().getStringList(configName + ".AvailableCommands")) {
+			switch (availableSubCommand) {
 			case "Reports":
-				classType.addSubCommand(Arrays.asList("reports", "r", "viewreports", "vr", "activereports", "ar"), new Reports());
+				classType.addSubCommand(Arrays.asList("reports", "r", "viewreports", "vr", "activereports", "ar"),
+						new Reports());
 				break;
 			case "LogConfig":
 				classType.addSubCommand(Arrays.asList("logconfig", "log", "lg"), new LogConfig());
 				break;
 			case "Freeze":
-				classType.addSubCommand(Arrays.asList("freeze", "f"), new Freeze());
+				classType.addSubCommand(Arrays.asList("freeze", "f", "unfreeze"), new Freeze());
 				break;
 			case "Xray":
 				classType.addSubCommand(Arrays.asList("xray"), new Xray());
@@ -154,7 +157,9 @@ public class Main extends JavaPlugin {
 				classType.addSubCommand(Arrays.asList("invsee", "echest", "is", "ec"), new InvSee());
 				break;
 			case "CycleTeleport":
-				classType.addSubCommand(Arrays.asList("cycleteleport", "randomteleport", "cycletp", "randomtp", "ctp", "randtp"), new CycleTeleport());
+				classType.addSubCommand(
+						Arrays.asList("cycleteleport", "randomteleport", "cycletp", "randomtp", "ctp", "randtp"),
+						new CycleTeleport());
 				break;
 			case "Chat":
 				classType.addSubCommand(Arrays.asList("chat", "achat", "mchat", "hchat"), new Chat());

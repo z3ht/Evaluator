@@ -31,11 +31,11 @@ public class Admin implements CommandExecutor, HubCommand {
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage(Translate.Color(plugin.getConfig().getString("Admin.Permission Message")));
+			sender.sendMessage(Translate.Color(plugin.getConfig().getString("Admin.PermissionMessage")));
 		}
 		Player player = (Player) sender;
 		if(!(player.hasPermission("evaluator.admin"))) {
-			player.sendMessage(Translate.Color(plugin.getConfig().getString("Admin.Permission Message")));
+			player.sendMessage(Translate.Color(plugin.getConfig().getString("Admin.PermissionMessage")));
 			return true;
 		}
 		if(args == null || args.length == 0) {
